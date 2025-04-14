@@ -33,8 +33,11 @@ def kripto_fiyat_takibi(coin,para):
     if response.status_code == 200:
         veri = response.json()
         if coin in veri:
-            fiyat = veri[coin][para]
-            print(f"{coin.capitalize()} fiyatı: {fiyat} {para}")
+            if para in veri[coin]:
+                fiyat = veri[coin][para]
+                print(f"{coin.capitalize()} fiyatı: {fiyat} {para}")
+            else:
+                print(f"{para.upper()} API de yer almıyor.Geçerli bir para birimi giriniz.")
         else:
             print(f"{coin} API de yer almıyor.Coinin isimini kontrol ediniz.")
     else:
