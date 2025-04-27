@@ -1,5 +1,7 @@
 import requests
 
+geçmiş = []
+
 def popüler_coinler_listesi():
     url = 'https://api.coingecko.com/api/v3/coins/markets' 
     params = {
@@ -36,19 +38,29 @@ def kripto_fiyat_takibi(coin,para):
             if para in veri[coin]:
                 fiyat = veri[coin][para]
                 print(f"{coin.capitalize()} fiyatı: {fiyat} {para}")
+                geçmiş.append({"coin":coin,"para":para,"fiyat":fiyat})
             else:
-                print(f"{para.upper()} API de yer almıyor.Geçerli bir para birimi giriniz.")
+                print(f"{para()} API de yer almıyor.Geçerli bir para birimi giriniz.")
         else:
             print(f"{coin} API de yer almıyor.Coinin isimini kontrol ediniz.")
     else:
         print("Fiyat alınamadı.")
+
+def geçmişi_göster():
+    if geçmiş:
+        print("\nGeçmiş fiyat sorguları:")
+        for sorgu in geçmiş:
+            print(f"{sorgu['coin']} {sorgu['para']}:{sorgu['fiyat']}")
+    else:
+        print("Geçmiş bulunamadı.")       
 
 def ana_program():
     popüler_coinler = []
     while True:
         print("1-Popüler coinleri listele")
         print("2-Coin fiyatını sorgula")
-        print("3-Çıkış yap")
+        print("3-Geçmiş sorguları göster")
+        print("4-Çıkış yap")
 
         seçim = input("Yapacağınız işlemi seçiniz:").strip()
 
@@ -58,7 +70,9 @@ def ana_program():
             coin = input("Coinin ismini giriniz: ").lower()
             para = input("Para birimini giriniz: ").lower()
             kripto_fiyat_takibi(coin, para)
-        elif seçim == '3':
+        elif seçim == "3":
+            geçmişi_göster()
+        elif seçim == '4':
             print("Programdan çıkılıyor. Görüşmek üzere!")
             break
         else:
