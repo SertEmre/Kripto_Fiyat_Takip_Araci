@@ -40,7 +40,7 @@ def kripto_fiyat_takibi(coin,para):
                 print(f"{coin.capitalize()} fiyatı: {fiyat} {para}")
                 geçmiş.append({"coin":coin,"para":para,"fiyat":fiyat})
             else:
-                print(f"{para()} API de yer almıyor.Geçerli bir para birimi giriniz.")
+                print(f"{para} API de yer almıyor.Geçerli bir para birimi giriniz.")
         else:
             print(f"{coin} API de yer almıyor.Coinin isimini kontrol ediniz.")
     else:
@@ -52,7 +52,12 @@ def geçmişi_göster():
         for sorgu in geçmiş:
             print(f"{sorgu['coin']} {sorgu['para']}:{sorgu['fiyat']}")
     else:
-        print("Geçmiş bulunamadı.")       
+        print("Geçmiş bulunamadı.")  
+
+def geçmişi_sil():
+    global geçmiş
+    geçmiş.clear()
+    print("Geçmiş Silindi")
 
 def ana_program():
     popüler_coinler = []
@@ -60,7 +65,8 @@ def ana_program():
         print("1-Popüler coinleri listele")
         print("2-Coin fiyatını sorgula")
         print("3-Geçmiş sorguları göster")
-        print("4-Çıkış yap")
+        print("4-Geçmişi sil")
+        print("5-Çıkış yap")
 
         seçim = input("Yapacağınız işlemi seçiniz:").strip()
 
@@ -72,7 +78,9 @@ def ana_program():
             kripto_fiyat_takibi(coin, para)
         elif seçim == "3":
             geçmişi_göster()
-        elif seçim == '4':
+        elif seçim == "4":
+            geçmişi_sil()
+        elif seçim == '5':
             print("Programdan çıkılıyor. Görüşmek üzere!")
             break
         else:
